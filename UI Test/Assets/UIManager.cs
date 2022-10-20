@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     public void GoBack()
     {
-        LeanTween.moveX(window, transform.position.x - 130f, time).setEase(animationCurve2).setOnComplete(Show);
+        LeanTween.moveX(window, transform.position.x - 130f, time).setEase(animationCurve2);
     }
 
     public void Show()
