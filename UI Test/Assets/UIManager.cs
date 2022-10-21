@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
     public AnimationCurve animationCurve;
     public AnimationCurve animationCurve2;
     private RectTransform startLocation;
-    private Vector3 endLocation;
     public float time = 2f;
     private Button panelButton;
     private bool panelShown;
@@ -39,19 +38,25 @@ public class UIManager : MonoBehaviour
     public void GoBack()
     {
         panelShown = false;
-        LeanTween.moveX(window, startLocation.position.x - 100, time).setEase(animationCurve2);
+        disablePanel();
+        LeanTween.moveX(window, startLocation.position.x - 100, time).setEase(animationCurve2).setOnComplete(enablePanel);
     }
 
     //Opening the Panel
     public void Show()
     {
         panelShown = true;
-        LeanTween.moveX(window, window.position.x + 100, time).setEase(animationCurve).setOnComplete(setLocation);
+        disablePanel();
+        LeanTween.moveX(window, window.position.x + 100, time).setEase(animationCurve).setOnComplete(enablePanel);
     }
 
-    private void setLocation()
+    private void disablePanel()
     {
-        endLocation = window.position;
-        Debug.Log("EndLocation Set: " + endLocation);
+        panelButton.enabled = false;
+    }
+
+    private void enablePanel()
+    {
+        panelButton.enabled = true;
     }
 }
