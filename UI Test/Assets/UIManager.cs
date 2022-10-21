@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     private Vector3 endLocation;
     public float time = 2f;
     private Button panelButton;
+    private bool panelShown;
 
     void Start()
     {
@@ -22,18 +23,30 @@ public class UIManager : MonoBehaviour
         Show();
     }
 
+    public void panelControl()
+    {
+        if (panelShown)
+        {
+            GoBack();
+        }
+        else
+        {
+            Show();
+        }
+    }
+
     //Closing the Panel
     public void GoBack()
     {
-        LeanTween.moveX(window, startLocation.position.x - 120, time).setEase(animationCurve2);
-        panelButton.enabled = true;
+        panelShown = false;
+        LeanTween.moveX(window, startLocation.position.x - 100, time).setEase(animationCurve2);
     }
 
     //Opening the Panel
     public void Show()
     {
-        LeanTween.moveX(window, window.position.x + 120, time).setEase(animationCurve).setOnComplete(setLocation);
-        panelButton.enabled = false; //Prevents you from clicking on panel to move panel forward infinitely
+        panelShown = true;
+        LeanTween.moveX(window, window.position.x + 100, time).setEase(animationCurve).setOnComplete(setLocation);
     }
 
     private void setLocation()
